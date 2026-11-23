@@ -1,0 +1,16 @@
+{
+  "name": "beehive-2do-windows",
+  "owner": {
+    "name": "Beehive Innovations"
+  },
+  "plugins": [
+    {
+      "name": "2do-windows",
+      "source": "./",
+      "description": "Connect to 2Do for Windows through MCP."
+    }
+  ],
+  "metadata": {
+    "description": "MCP connections for 2Do for Windows."
+  }
+}

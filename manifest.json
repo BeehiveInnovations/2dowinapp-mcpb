@@ -1,0 +1,46 @@
+{
+  "manifest_version": "0.3",
+  "name": "2do-windows",
+  "display_name": "2Do for Windows",
+  "version": "0.1.0",
+  "description": "Find and edit tasks, organize lists and read task attachments in 2Do for Windows.",
+  "author": {
+    "name": "Beehive Innovations",
+    "url": "https://www.2doapp.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BeehiveInnovations/2dowinapp-mcpb"
+  },
+  "documentation": "https://www.2doapp.com/docs/windows/mcp",
+  "support": "https://github.com/BeehiveInnovations/2dowinapp-mcpb/issues",
+  "icon": "assets/2do-icon.png",
+  "tools_generated": true,
+  "compatibility": {
+    "platforms": [
+      "win32"
+    ]
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.cjs",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/server/index.cjs"
+      ],
+      "env": {
+        "TWODO_MCP_URL": "${user_config.local_url}"
+      }
+    }
+  },
+  "user_config": {
+    "local_url": {
+      "type": "string",
+      "title": "Local URL (optional)",
+      "description": "Leave blank for the running 2Do library. If you have several open, paste its local URL from Settings > Automation.",
+      "required": false,
+      "default": ""
+    }
+  }
+}

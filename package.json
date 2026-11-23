@@ -1,0 +1,20 @@
+{
+  "name": "2do-windows-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Connect MCP clients to 2Do for Windows.",
+  "type": "module",
+  "license": "SEE LICENSE IN LICENSE",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test",
+    "build": "node scripts/build.mjs"
+  },
+  "devDependencies": {
+    "@anthropic-ai/mcpb": "2.1.2",
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "esbuild": "0.28.2"
+  }
+}

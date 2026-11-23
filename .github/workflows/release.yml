@@ -1,0 +1,26 @@
+name: Release 2Do for Windows MCP
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm test
+      - run: npm run build
+      - name: Publish the versioned MCP bundle
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $bundle = (Get-ChildItem -LiteralPath dist -File -Filter '*.mcpb').FullName
+          gh release create $env:GITHUB_REF_NAME $bundle dist/SHA256SUMS dist/server.json --verify-tag --generate-notes --title "2Do for Windows MCP $env:GITHUB_REF_NAME"
+          exit $LASTEXITCODE
