@@ -9,7 +9,7 @@ async function main() {
 }
 main().catch(error => {
   // Discovery returns actionable setup errors; never log arbitrary file content or SDK errors.
-  const message = /^(Choose the local URL|Open 2Do|Several libraries|Windows could not read|This connector runs)/.test(error.message)
+  const message = /^(Choose the local URL|Open 2Do|More than one copy of 2Do|Windows could not read|This connector runs)/.test(error.message)
     ? error.message : '2Do could not open its local connection. Check Settings > Automation and reconnect.';
   console.error(message);
   process.exitCode = 1;

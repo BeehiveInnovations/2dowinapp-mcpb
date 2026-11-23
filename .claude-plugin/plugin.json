@@ -1,12 +1,12 @@
 {
   "name": "2do-windows",
-  "description": "Connect Claude Code to the tasks in your running 2Do for Windows library.",
-  "version": "0.1.0",
+  "description": "Use Claude Code to find and edit your tasks in 2Do for Windows.",
+  "version": "0.1.1",
   "author": {
     "name": "Beehive Innovations"
   },
   "homepage": "https://www.2doapp.com/docs/windows/mcp",
   "repository": "https://github.com/BeehiveInnovations/2dowinapp-mcpb",
-  "mcpServers": "https://github.com/BeehiveInnovations/2dowinapp-mcpb/releases/download/v0.1.0/2do-windows.0.1.0.mcpb",
+  "mcpServers": "https://github.com/BeehiveInnovations/2dowinapp-mcpb/releases/download/v0.1.1/2do-windows.0.1.1.mcpb",
   "icon": "./assets/2do-icon.png"
 }

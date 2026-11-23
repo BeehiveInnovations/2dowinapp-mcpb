@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "2do-windows",
   "display_name": "2Do for Windows",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Find and edit tasks, organize lists and read task attachments in 2Do for Windows.",
   "author": {
     "name": "Beehive Innovations",
@@ -38,7 +38,7 @@
     "local_url": {
       "type": "string",
       "title": "Local URL (optional)",
-      "description": "Leave blank for the running 2Do library. If you have several open, paste its local URL from Settings > Automation.",
+      "description": "Leave this blank to connect automatically. If more than one copy of 2Do has automation on, paste the local URL from Settings > Automation in the copy you want.",
       "required": false,
       "default": ""
     }

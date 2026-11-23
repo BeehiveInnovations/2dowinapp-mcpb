@@ -1,6 +1,6 @@
 # 2Do for Windows MCP
 
-Connect your MCP client to 2Do to find and edit tasks, plan projects, organize sections, read attachments, and transcribe voice notes. The 35 tools run in the open 2Do app. Changes use the same library and Undo history as an edit in 2Do.
+Connect your MCP client to 2Do to find and edit tasks, plan projects, organize sections, read attachments, and transcribe voice notes. The 35 tools run in the open 2Do app. Edits appear in 2Do, where you can undo them.
 
 ## Connect over HTTP
 
@@ -14,7 +14,7 @@ To connect from another device, use your own HTTPS reverse proxy. The [Windows a
 
 If your client supports local MCP bundles, download **2do-windows.<version>.mcpb** from the [latest release](https://github.com/BeehiveInnovations/2dowinapp-mcpb/releases/latest) and install it in the client on the same PC as 2Do. In Claude Desktop, open **Settings > Extensions > Advanced settings > Install Extension**. Start a new chat after installation.
 
-The bundle finds a running 2Do library with Automation enabled. If you run several enabled libraries, enter the library's local URL from Settings in the extension's optional **Local URL** field. The bundle reads the existing key using Windows data protection. Stdio clients and the Claude Code plugin use the same discovery. After replacing the key in 2Do, reconnect the client to pick up the new key automatically.
+Turn on **Automation** in 2Do. The connector finds the app and reads its access key automatically. If you run more than one copy of 2Do with automation on, paste the local URL from the copy you want into the optional **Local URL** field. After replacing the key in 2Do, reconnect your client to use the new one.
 
 ## Install the Claude Code plugin
 
@@ -42,12 +42,12 @@ Extract the release bundle as a ZIP archive into a folder of your choice. Config
 }
 ```
 
-To choose a particular library, set `TWODO_MCP_URL` in the server's environment to the local URL shown in 2Do. The adapter talks to that library on IPv4 loopback. 2Do supplies the current tool list, permissions, data and results. Images and audio returned by a tool go to your chosen client. Voice transcription runs on the PC.
+If you need to choose between running copies of 2Do, set `TWODO_MCP_URL` to the local URL from **Settings > Automation** in the copy you want. The connector talks to 2Do on this PC. When you ask for an image or recording, your client receives that attachment. 2Do transcribes voice notes on the PC.
 
 ## Build and publish
 
 Install Node.js 22 or newer, then run `npm ci --ignore-scripts`, `npm test` and `npm run build`. The build validates the desktop manifest, bundles the adapter and writes the MCPB, SHA-256 checksum and official MCP Registry metadata to `dist/`.
 
-Update the matching versions in `package.json`, `package-lock.json`, `manifest.json`, and `.claude-plugin/plugin.json`, including the plugin's release URL. Push a matching `v<version>` tag to create a GitHub Release. That release serves the same versioned artifact to desktop extension hosts and the Claude Code plugin.
+Update the matching versions in `package.json`, `package-lock.json`, `manifest.json`, and `.claude-plugin/plugin.json`, including the plugin's release URL. Push a matching `v<version>` tag to publish the bundle. A repeat run checks the existing downloads against their published checksums. To check an older release, run the release workflow manually and enter its tag.
 
 To list a published release in the [official MCP Registry](https://modelcontextprotocol.io/registry/quickstart), download the release's `server.json`, sign in with the organization's authorized `mcp-publisher` account and run `mcp-publisher publish` from the directory containing that file. The manifest identifies the GitHub release asset and its exact digest. Listing in third-party plugin directories is a separate submission.

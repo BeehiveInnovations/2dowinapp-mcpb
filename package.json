@@ -1,6 +1,6 @@
 {
   "name": "2do-windows-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Connect MCP clients to 2Do for Windows.",
   "type": "module",

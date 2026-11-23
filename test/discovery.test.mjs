@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { locateConnection } from '../server/discovery.mjs';
 
-test('chooses the enabled library owned by the running package and rejects ambiguous or external addresses', async t => {
+test('chooses the connection owned by the running copy of 2Do and rejects ambiguous or external addresses', async t => {
   const root = await mkdtemp(path.join(os.tmpdir(), '2do-library-'));
   t.after(() => rm(root, { recursive: true, force: true }));
   const install = 'C:\\Apps\\Beehive.TwoDo';
@@ -21,7 +21,7 @@ test('chooses the enabled library owned by the running package and rejects ambig
   assert.deepEqual(await locateConnection(root, state), { port: 6000, protectedKey: 'key0' });
   await assert.rejects(locateConnection(root, state, 'https://other.test/mcp'), /local URL/);
   state.ports.push({ LocalPort: 6002, OwningProcess: 12 });
-  await assert.rejects(locateConnection(root, state), /Several libraries/);
+  await assert.rejects(locateConnection(root, state), /More than one copy of 2Do/);
   assert.deepEqual(await locateConnection(root, state, 'http://127.0.0.1:6002/mcp'), { port: 6002, protectedKey: 'key2' });
   state.ports = [];
   await assert.rejects(locateConnection(root, state), /Open 2Do/);

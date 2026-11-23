@@ -65,7 +65,7 @@ export async function locateConnection(localData, { apps, ports, packages }, req
     }
   }
   if (!matches.length) throw new Error('Open 2Do, turn on Settings > Automation and use its current local URL.');
-  if (matches.length > 1) throw new Error('Several libraries are open. Choose the local URL of the library you want.');
+  if (matches.length > 1) throw new Error('More than one copy of 2Do has automation turned on. Enter the local URL from Settings > Automation in the copy you want.');
   return matches[0];
 }
 
