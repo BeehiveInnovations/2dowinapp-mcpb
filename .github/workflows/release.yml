@@ -1,7 +1,17 @@
 name: Release 2Do for Windows MCP
+run-name: ${{ inputs.verify_tag && format('Verify published release {0}', inputs.verify_tag) || format('Release {0}', github.ref_name) }}
 on:
   push:
     tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      verify_tag:
+        description: Published version to check
+        required: true
+        type: string
+concurrency:
+  group: windows-mcp-release-${{ inputs.verify_tag || github.ref_name }}
+  cancel-in-progress: false
 permissions:
   contents: write
 jobs:
@@ -16,11 +26,8 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm test
       - run: npm run build
-      - name: Publish the versioned MCP bundle
-        shell: pwsh
+      - name: Publish or verify the versioned MCP bundle
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          $bundle = (Get-ChildItem -LiteralPath dist -File -Filter '*.mcpb').FullName
-          gh release create $env:GITHUB_REF_NAME $bundle dist/SHA256SUMS dist/server.json --verify-tag --generate-notes --title "2Do for Windows MCP $env:GITHUB_REF_NAME"
-          exit $LASTEXITCODE
+          VERIFY_TAG: ${{ inputs.verify_tag }}
+        run: node scripts/publish.mjs
